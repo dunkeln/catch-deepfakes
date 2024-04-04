@@ -16,3 +16,5 @@ read_dir = lambda path: map(
         lambda x: map(lambda file: os.path.join(path, file), x)
     )(path)
 )
+
+get_size = lambda path: len(os.listdir(path + '/fake')) + len(os.listdir(path + '/real'))
