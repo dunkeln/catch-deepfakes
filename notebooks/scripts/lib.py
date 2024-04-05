@@ -9,7 +9,11 @@ def compose(*fns):
         return reduce(lambda acc, fn: fn(acc), fns, x)
     return __inner__
 
-img_to_matrix = compose(mpimg.imread, torch.tensor)
+# img_to_matrix = compose(mpimg.imread, lambda x: torch.as_tensor(x, dtype=torch.float32))
+
+def img_to_matrix(x: str):
+    x = mpimg.imread(x)
+    return torch.as_tensor(x, dtype=torch.float32)
 
 get_size = compose(os.listdir, list.__len__)
 
