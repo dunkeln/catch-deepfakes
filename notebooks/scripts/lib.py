@@ -17,7 +17,7 @@ get_size = compose(os.listdir, list.__len__)
 
 create_df = lambda path: pl.DataFrame({
     'file': (fake_faces := os.listdir(path + 'fake')) + (real_faces := os.listdir(path + 'real')),
-    'label': [ 0 for _ in range(len(fake_faces))] + [1 for _ in range(len(real_faces)) ],
+    'label': [ torch.tensor([1, 0]) for _ in range(len(fake_faces))] + [torch.tensor([0, 1]) for _ in range(len(real_faces)) ],
 })
 
 def clip_img(img: torch.Tensor, shape=224) -> torch.Tensor:
