@@ -11,34 +11,34 @@ class MesoNet(nn.Module):
         self.cnn_1 = nn.Sequential(
             nn.Conv2d(in_channels=3, out_channels=8, kernel_size=3, padding=1),
             nn.LeakyReLU(),
-            nn.BatchNorm2d(),
+            nn.BatchNorm2d(8),
             nn.MaxPool2d(kernel_size=(2, 2))
         )
 
         self.cnn_2 = nn.Sequential(
             nn.Conv2d(in_channels=8, out_channels=8, kernel_size=5, padding=2),
             nn.LeakyReLU(),
-            nn.BatchNorm2d(),
+            nn.BatchNorm2d(8),
             nn.MaxPool2d(kernel_size=(2, 2))
         )
 
         self.cnn_3 = nn.Sequential(
             nn.Conv2d(in_channels=8, out_channels=16, kernel_size=5, padding=2),
             nn.LeakyReLU(),
-            nn.BatchNorm2d(),
+            nn.BatchNorm2d(16),
             nn.MaxPool2d(kernel_size=(2, 2))
         )
 
         self.cnn_4 = nn.Sequential(
             nn.Conv2d(in_channels=16, out_channels=16, kernel_size=5, padding=2),
             nn.LeakyReLU(),
-            nn.BatchNorm2d(),
+            nn.BatchNorm2d(16),
             nn.MaxPool2d(kernel_size=(4, 4))
         )
 
         self.fcn = nn.Sequential(
-            nn.Dropout(.5),
-            nn.Linear(8 * 8, 16),
+            nn.Flatten(),
+            nn.Linear(1024, 16),
             nn.Dropout(.5),
             nn.Linear(16, 2),
             nn.Sigmoid()
