@@ -4,5 +4,4 @@ matplotlib
 seaborn
 tqdm
 polars
-wandb
 kaggle
