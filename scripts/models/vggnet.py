@@ -13,7 +13,7 @@ class VGGNet(nn.Module):
             layers = [
                 nn.Conv2d(in_channels, out_channels, kernel_size=3, stride=1, padding=1),
                 nn.BatchNorm2d(out_channels),
-                nn.ReLU(),
+                nn.ReLU(inplace=True),
             ]
 
             if max_pool:
@@ -35,11 +35,12 @@ class VGGNet(nn.Module):
         self.layer_13 = create(512, 512, max_pool=True)
 
         self.fcn = nn.Sequential(
+            nn.Flatten(),
             nn.Linear(7 * 7 * 512, 4096),
-            nn.ReLU(),
+            nn.ReLU(inplace=True),
             nn.Dropout(.5),
             nn.Linear(4096, 4096),
-            nn.ReLU(),
+            nn.ReLU(in_place=True),
             nn.Dropout(.5),
             nn.Linear(4096, 2)
         )
